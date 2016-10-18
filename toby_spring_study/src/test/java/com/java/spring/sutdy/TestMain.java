@@ -4,6 +4,7 @@ import java.sql.SQLException;
 
 import com.java.spring.study.user.dao.ConnectionMaker;
 import com.java.spring.study.user.dao.DConnectionMaker;
+import com.java.spring.study.user.dao.DaoFactory;
 import org.junit.Test;
 
 import com.java.spring.study.user.dao.UserDao;
@@ -12,12 +13,11 @@ import com.java.spring.study.user.domain.User;
 public class TestMain {
 	@Test
 	public void main() throws ClassNotFoundException, SQLException {
-		ConnectionMaker connectionMaker = new DConnectionMaker();
 
-		UserDao dao = new UserDao(connectionMaker);
+		UserDao dao = new DaoFactory().userDao();
 		User user = new User();
 		
-		user.setId("3113j4");
+		user.setId("1122");
 		user.setName("백재현");
 		user.setPassword("married");
 		dao.add(user);
