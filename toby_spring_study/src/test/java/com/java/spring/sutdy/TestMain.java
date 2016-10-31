@@ -17,7 +17,8 @@ public class TestMain {
 	public void main() throws ClassNotFoundException, SQLException {
 
 	    ApplicationContext context = new AnnotationConfigApplicationContext(DaoFactory.class);
-        UserDao dao = context.getBean("userDao", UserDao.class);	User user = new User();
+        UserDao dao = context.getBean("userDao", UserDao.class);
+		User user = new User();
 
 		user.setId("11223311");
 		user.setName("백재현");
