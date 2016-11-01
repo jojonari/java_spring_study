@@ -15,7 +15,7 @@ public class UserDaoConnectionCountionTest {
 
        User user = new User();
 
-        user.setId("32323");
+        user.setId("123ddd");
         user.setName("백재현");
         user.setPassword("married");
         dao.add(user);
