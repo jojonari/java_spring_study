@@ -1,7 +1,8 @@
 package com.java.spring.study.user.dao;
 
 import com.java.spring.study.user.domain.User;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.GenericXmlApplicationContext;
 
 import java.sql.SQLException;
 
@@ -10,12 +11,12 @@ import java.sql.SQLException;
  */
 public class UserDaoConnectionCountionTest {
     public static void main(String[] args) throws ClassNotFoundException, SQLException{
-        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(CountingDaoFactory.class);
+        ApplicationContext context = new GenericXmlApplicationContext("applicationContext.xml");
         UserDao dao = context.getBean("userDao", UserDao.class);
 
        User user = new User();
 
-        user.setId("123ddd");
+        user.setId("123ddss");
         user.setName("백재현");
         user.setPassword("married");
         dao.add(user);
