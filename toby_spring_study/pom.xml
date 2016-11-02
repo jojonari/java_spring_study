@@ -96,5 +96,14 @@
 			<scope>test</scope>
 		</dependency>
 
+		<!-- database -->
+
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>${spring-framework.version}</version>
+		</dependency>
+
 	</dependencies>	
 </project>

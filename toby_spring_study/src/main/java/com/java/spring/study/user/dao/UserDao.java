@@ -1,34 +1,26 @@
 package com.java.spring.study.user.dao;
 
+import com.java.spring.study.user.domain.User;
+
+import javax.sql.DataSource;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.java.spring.study.user.domain.User;
-
-public class UserDao {
-	private ConnectionMaker connectionMaker;
+public class UserDao{
+	private DataSource dataSource;
 
 
-	public UserDao(ConnectionMaker connectionMaker) {
-		this.connectionMaker = connectionMaker;
+
+	public void setDataSource(DataSource dataSource) {
+		this.dataSource = dataSource;
 	}
 
-	public void setConnectionMaker(ConnectionMaker connectionMaker) {
-		this.connectionMaker = connectionMaker;
-	}
-
-	public UserDao() {
-		this.connectionMaker = new DConnectionMaker();
-	}
-
-	public void add(User user)throws ClassNotFoundException, SQLException {
-
-		Connection conn = connectionMaker.makeConnection();
-		PreparedStatement ps = conn.prepareStatement(
-				"insert into users(id, name, password) values(?,?,?)");
+	public void add(User user)throws SQLException{
+		Connection c = dataSource.getConnection();
+		PreparedStatement ps = c
+				.prepareStatement("insert into users(id, name, password) values(?,?,?)");
 		ps.setString(1, user.getId());
 		ps.setString(2, user.getName());
 		ps.setString(3, user.getPassword());
@@ -36,20 +28,20 @@ public class UserDao {
 		ps.executeUpdate();
 
 		ps.close();
-		conn.close();
-
+		c.close();
 	}
 
 
-	public User get(String id)throws ClassNotFoundException, SQLException {
+	public User get(String id) throws ClassNotFoundException, SQLException {
 
-		Connection conn = connectionMaker.makeConnection();
-		PreparedStatement ps = conn.prepareStatement("select * from users where id = ?");
+		Connection c = dataSource.getConnection();
+
+		PreparedStatement ps = c
+				.prepareStatement("select * from users where id = ?");
 		ps.setString(1, id);
 
 		ResultSet rs = ps.executeQuery();
 		rs.next();
-
 		User user = new User();
 		user.setId(rs.getString("id"));
 		user.setName(rs.getString("name"));
@@ -57,9 +49,9 @@ public class UserDao {
 
 		rs.close();
 		ps.close();
-		conn.close();
-		return user;
+		c.close();
 
+		return user;
 	}
 }
 
